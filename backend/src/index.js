@@ -26,10 +26,12 @@ app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "dist"))); // Serve static files
+  // Serve frontend static files
+  app.use(express.static(path.join(__dirname, "frontend/dist")));
 
+  // Handle any route by serving index.html
   app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "dist", "index.html"));
+    res.sendFile(path.join(__dirname, "frontend/dist", "index.html"));
   });
 }
 
